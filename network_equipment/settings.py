@@ -13,11 +13,14 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
-import dj_database_url
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crud',
 ]
 
 MIDDLEWARE = [
@@ -81,11 +85,10 @@ WSGI_APPLICATION = 'network_equipment.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
+    'default': env.db('DATABASE_URL', default='postgresql://postgres:postgres@localhost:5432/mysite')
 }
+
+DATABASES['default']['CONN_MAX_AGE'] = 600
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
@@ -124,6 +127,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 if not DEBUG:
+    DATABASES['default']['OPTIONS'] = {'sslmode':'require'}
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
