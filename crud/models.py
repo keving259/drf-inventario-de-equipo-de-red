@@ -44,7 +44,7 @@ class Puerto(models.Model):
         on_delete = models.CASCADE,
         related_name = 'puertos'
     )
-    numero_puerto = models.CharField(max_length=15)
+    numero_puerto = models.CharField(max_length=20)
     
     class Tipo(models.TextChoices):
         ETHERNET_FAST = 'FE', 'Fast Ethernet (10/100)'
