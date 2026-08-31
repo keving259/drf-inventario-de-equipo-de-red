@@ -116,6 +116,8 @@ REST_FRAMEWORK = {
     ]
 }
 
+LOGIN_REDIRECT_URL = '/api/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
