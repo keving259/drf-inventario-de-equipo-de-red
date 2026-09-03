@@ -123,6 +123,14 @@ curl https://drf-inventario-de-equipo-de-red.onrender.com/api/dispositivos/ \
   -H "Authorization: Token e4a1c2..."
 ```
 
+### Usuario de prueba (solo lectura)
+Debido a que esta API no tiene un endpoint de registro público, para probar la demo se necesitan credenciales. El usuario que se comparte aquí es de **solo lectura**: puede hacer `GET` en todos los endpoints, pero recibirá `403 Forbidden` si intenta `POST`, `PUT`, `PATCH` o `DELETE`. La escritura está reservada a usuarios `staff`, que no se expone públicamente.
+
+```
+usuario: demo
+password: demo
+```
+
 ## Instalación local
 
 ### Requisitos previos
